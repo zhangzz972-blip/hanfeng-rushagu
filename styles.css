@@ -1,0 +1,740 @@
+:root {
+  --ink: #18120f;
+  --ink-soft: #2b211c;
+  --paper: #f1e6d8;
+  --paper-deep: #dfcfbb;
+  --stone: #c8a987;
+  --stone-strong: #ab7b51;
+  --clay: #8e5638;
+  --gold: #d5b17a;
+  --line: rgba(60, 38, 28, 0.14);
+  --shadow: 0 24px 70px rgba(34, 23, 17, 0.18);
+  --font-display: "STZhongsong", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --font-body: "STSong", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --font-accent: "STKaiti", "KaiTi", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.72;
+  background:
+    radial-gradient(circle at top left, rgba(213, 177, 122, 0.18), transparent 24%),
+    radial-gradient(circle at 85% 8%, rgba(142, 86, 56, 0.12), transparent 18%),
+    linear-gradient(180deg, #f4ece2 0%, #efe3d2 46%, #eadbc6 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 112px,
+      rgba(84, 51, 35, 0.025) 112px,
+      rgba(84, 51, 35, 0.025) 113px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent 18%);
+  pointer-events: none;
+}
+
+.page-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(58, 38, 28, 0.045) 0.8px, transparent 0.8px),
+    radial-gradient(rgba(255, 255, 255, 0.06) 0.9px, transparent 0.9px);
+  background-size: 28px 28px, 32px 32px;
+  background-position: 0 0, 12px 12px;
+  mix-blend-mode: multiply;
+  opacity: 0.65;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.shell {
+  width: min(1240px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem clamp(1rem, 3vw, 2rem);
+  color: var(--paper);
+  background: rgba(24, 18, 15, 0.88);
+  border-bottom: 1px solid rgba(213, 177, 122, 0.15);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.brand-mark {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  letter-spacing: 0.16em;
+}
+
+.brand-sub {
+  font-size: 0.68rem;
+  color: rgba(241, 230, 216, 0.7);
+  letter-spacing: 0.3em;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem;
+  font-size: 0.94rem;
+  color: rgba(241, 230, 216, 0.78);
+}
+
+.site-nav a {
+  position: relative;
+  padding-bottom: 0.2rem;
+}
+
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transition: transform 220ms ease;
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: clamp(1.8rem, 4vw, 3rem);
+  align-items: stretch;
+  padding: clamp(2.2rem, 7vw, 5.4rem) 0 3rem;
+}
+
+.hero-panel,
+.brief,
+.path-card,
+.pair-card,
+.gallery-card,
+.philosophy-card,
+.closing-panel {
+  box-shadow: var(--shadow);
+}
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.7rem, 4vw, 2.4rem);
+  border-radius: 2rem;
+  color: var(--paper);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(213, 177, 122, 0.16), transparent 18%),
+    linear-gradient(145deg, #1e1714 0%, #100c0a 100%);
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  inset: auto -3rem -4rem auto;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(213, 177, 122, 0.18), transparent 68%);
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--gold);
+  font-size: 0.74rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.section-heading h2,
+.closing-panel h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  line-height: 1.08;
+}
+
+.hero h1 {
+  font-size: clamp(3.1rem, 8vw, 6rem);
+  letter-spacing: 0.12em;
+}
+
+.hero-subtitle {
+  margin: 1rem 0 1.15rem;
+  color: #efd6ad;
+  font-family: var(--font-accent);
+  font-size: clamp(1.08rem, 2vw, 1.42rem);
+}
+
+.hero-text,
+.brief-lead,
+.pair-copy p,
+.philosophy-card p,
+.closing-panel p {
+  font-size: 1.02rem;
+}
+
+.hero-text {
+  color: rgba(241, 230, 216, 0.86);
+}
+
+.hero-actions,
+.closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 1.8rem 0 2rem;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.75rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid rgba(213, 177, 122, 0.3);
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(213, 177, 122, 0.62);
+}
+
+.button-solid {
+  color: var(--ink);
+  background: linear-gradient(135deg, #ead0a2 0%, #c3895b 100%);
+}
+
+.button-ghost {
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.hero-stats div {
+  padding: 1rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(213, 177, 122, 0.12);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.hero-stats dt {
+  margin: 0;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.35rem);
+}
+
+.hero-stats dd {
+  margin: 0.3rem 0 0;
+  color: rgba(241, 230, 216, 0.72);
+  font-size: 0.92rem;
+}
+
+.hero-collage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.collage-card,
+.brief,
+.pair-card,
+.gallery-card,
+.philosophy-card,
+.closing-panel {
+  border: 1px solid var(--line);
+}
+
+.collage-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.7rem;
+  background: rgba(255, 249, 242, 0.74);
+  box-shadow: var(--shadow);
+}
+
+.collage-card img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.collage-card figcaption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(24, 18, 15, 0.74);
+  color: var(--paper);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+}
+
+.card-tall {
+  grid-row: span 2;
+  min-height: 31rem;
+  transform: rotate(-2deg);
+}
+
+.card-wide {
+  min-height: 14rem;
+  transform: rotate(1.5deg);
+}
+
+.card-medium {
+  min-height: 15rem;
+  transform: rotate(-1deg);
+}
+
+.hero-note {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: min(18rem, calc(100% - 2rem));
+  padding: 1rem 1.1rem;
+  border-radius: 1.4rem;
+  color: var(--paper);
+  background: rgba(24, 18, 15, 0.82);
+  backdrop-filter: blur(12px);
+}
+
+.hero-note span {
+  display: block;
+  color: var(--gold);
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hero-note p {
+  margin: 0.6rem 0 0;
+  font-size: 0.96rem;
+}
+
+.brief,
+.paths,
+.pairs,
+.gallery,
+.philosophy,
+.closing {
+  padding: 4.4rem 0;
+}
+
+.brief {
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2.2rem);
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08)),
+    rgba(255, 249, 242, 0.55);
+}
+
+.section-heading {
+  margin-bottom: 2rem;
+}
+
+.section-heading h2,
+.closing-panel h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 0.08em;
+}
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.brief-lead {
+  margin: 0;
+  max-width: 62ch;
+  color: rgba(24, 18, 15, 0.82);
+}
+
+.brief-points {
+  display: grid;
+  gap: 1rem;
+}
+
+.brief-points article,
+.path-card,
+.philosophy-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.3rem;
+  border-radius: 1.4rem;
+  background: rgba(255, 252, 247, 0.72);
+}
+
+.brief-points article::before,
+.path-card::before,
+.philosophy-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -14% -42% auto;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(171, 123, 81, 0.16), transparent 70%);
+}
+
+.brief-points span {
+  color: var(--stone-strong);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+}
+
+.brief-points h3,
+.path-card h3,
+.pair-copy h3,
+.gallery-card h3,
+.philosophy-card h3 {
+  margin: 0.55rem 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: 1.38rem;
+  letter-spacing: 0.04em;
+}
+
+.brief-points p,
+.path-card p:last-child,
+.gallery-card p,
+.gallery-card h3,
+.philosophy-card p,
+.closing-panel p {
+  margin: 0;
+  color: rgba(24, 18, 15, 0.76);
+}
+
+.path-grid,
+.gallery-grid,
+.philosophy-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.path-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.path-card {
+  min-height: 18rem;
+  padding-top: 2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 247, 0.7), rgba(246, 233, 215, 0.65)),
+    rgba(255, 249, 242, 0.72);
+}
+
+.path-mark {
+  margin: 0 0 0.9rem;
+  color: rgba(171, 123, 81, 0.42);
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 6vw, 4.4rem);
+  line-height: 1;
+}
+
+.pair-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 1.4rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding: 1.3rem;
+  border-radius: 1.8rem;
+  background: rgba(255, 251, 245, 0.78);
+}
+
+.pair-card:last-child {
+  margin-bottom: 0;
+}
+
+.pair-card-reverse {
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+}
+
+.pair-card-reverse .pair-visual {
+  order: 2;
+}
+
+.pair-card-reverse .pair-copy {
+  order: 1;
+}
+
+.pair-visual {
+  display: grid;
+  gap: 1rem;
+}
+
+.pair-double {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pair-triple {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pair-visual figure {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-radius: 1.35rem;
+  background: #f7efe6;
+}
+
+.pair-visual img {
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  padding: 0.85rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(236, 223, 207, 0.8));
+}
+
+.pair-visual figcaption {
+  padding: 0.85rem 0.95rem 1rem;
+  font-size: 0.9rem;
+  color: rgba(24, 18, 15, 0.82);
+}
+
+.visual-tag {
+  position: absolute;
+  left: 0.85rem;
+  top: 0.85rem;
+  z-index: 1;
+  padding: 0.3rem 0.58rem;
+  border-radius: 999px;
+  background: rgba(24, 18, 15, 0.78);
+  color: var(--paper);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.visual-tag-accent {
+  background: rgba(171, 123, 81, 0.9);
+}
+
+.pair-kicker,
+.philosophy-key,
+.gallery-label {
+  margin: 0 0 0.6rem;
+  color: var(--stone-strong);
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.pair-copy h3 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+.pair-copy p:last-child {
+  color: rgba(24, 18, 15, 0.76);
+}
+
+.gallery-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.gallery-card {
+  overflow: hidden;
+  border-radius: 1.55rem;
+  background: rgba(255, 251, 245, 0.82);
+}
+
+.gallery-card img {
+  aspect-ratio: 4 / 4.2;
+  object-fit: contain;
+  padding: 0.9rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(236, 223, 207, 0.74));
+}
+
+.gallery-card div {
+  padding: 1rem 1rem 1.2rem;
+}
+
+.gallery-card h3 {
+  font-size: 1.14rem;
+}
+
+.philosophy-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.philosophy-card {
+  min-height: 15rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 252, 247, 0.78);
+}
+
+.closing-panel {
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+  border-radius: 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0, rgba(213, 177, 122, 0.15), transparent 24%),
+    linear-gradient(180deg, rgba(255, 251, 245, 0.78), rgba(243, 229, 210, 0.74));
+}
+
+.closing-panel p {
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.site-footer {
+  width: min(1240px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 0 0 2rem;
+  color: rgba(24, 18, 15, 0.6);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 720ms ease,
+    transform 720ms ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1100px) {
+  .hero,
+  .brief-grid,
+  .pair-card,
+  .pair-card-reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .pair-card-reverse .pair-visual,
+  .pair-card-reverse .pair-copy {
+    order: initial;
+  }
+
+  .path-grid,
+  .gallery-grid,
+  .philosophy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+  }
+
+  .hero-stats,
+  .path-grid,
+  .gallery-grid,
+  .philosophy-grid,
+  .pair-double,
+  .pair-triple {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-collage {
+    grid-template-columns: 1fr;
+  }
+
+  .card-tall,
+  .card-wide,
+  .card-medium {
+    min-height: 18rem;
+    transform: none;
+  }
+
+  .card-tall {
+    grid-row: auto;
+  }
+
+  .hero-note {
+    position: static;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .button {
+    width: 100%;
+  }
+
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .pair-card {
+    padding: 1rem;
+  }
+
+  .pair-copy h3 {
+    font-size: 1.42rem;
+  }
+}
